@@ -12,7 +12,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
     if (b === 0) {
-        return "Undefined";
+        return null;
     }
     return a / b;
 }
@@ -31,10 +31,18 @@ let firstOperand = null;
 let secondOperand = null;
 let operator = null;
 let mustResetDisplay = false;
+let errorState = false;
 
     const display = document.querySelector(".display");
 
 function appendNumber(num) {
+    if (errorState) {
+        display.textContent = num;
+        errorState = false;
+        mustResetDisplay = false;
+        return;
+    }
+    
     if (display.textContent === "0" || mustResetDisplay) {
         display.textContent = num;
         mustResetDisplay = false;
@@ -44,11 +52,19 @@ function appendNumber(num) {
 }
 
 function appendDecimal() {
+    if (errorState) {
+        display.textContent = "0.";
+        errorState = false;
+        mustResetDisplay = false;
+        return;
+    }
+
     if (mustResetDisplay) {
         display.textContent = "0.";
         mustResetDisplay = false;
         return;
     }
+
     if (!display.textContent.includes(".")) {
         display.textContent += ".";
     }
@@ -59,6 +75,7 @@ function clear() {
     firstOperand = null;
     secondOperand = null;
     operator = null;
+    errorState = false;
 }
 
 function deleteNum() {
@@ -79,6 +96,10 @@ function convertOperation(operation) {
 }
 
 function operationSetup(op) {
+    if (errorState) {
+        return;
+    }
+    
     if (operator !== null) {
         evaluate();
     }
@@ -93,6 +114,15 @@ function evaluate() {
     }
     secondOperand = Number(display.textContent);
     let result = operate(firstOperand, secondOperand, operator);
+
+    if (result === null) {
+        display.textContent = "Undefined";
+        operator = null;
+        mustResetDisplay = true;
+        errorState = true;
+        return;
+    }
+
     display.textContent = Number(result.toFixed(7));
     operator = null;
     mustResetDisplay = true;
