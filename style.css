@@ -27,7 +27,7 @@ body {
     justify-content: flex-end;
     align-items: flex-end;
     color: black;
-    font-weight: 700;
+    font-weight: 500;
     font-family: 'Roberto', sans-serif;
     font-size: 50px;
     box-sizing: border-box;
@@ -64,6 +64,9 @@ button {
     border-radius: 30px;
     font-size: 24px;
     cursor: pointer;
+    font-family: 'Roberto', sans-serif;
+    font-size: 30px;
+    box-sizing: border-box;
 }
 
 .delete {
