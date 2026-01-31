@@ -21,7 +21,7 @@ function operate(num1, num2, operator) {
     switch (operator) {
         case "+": return add(num1, num2);
         case "-": return subtract(num1, num2);
-        case "*": return multiply(num1, num2);
+        case "×": return multiply(num1, num2);
         case "/": return divide(num1, num2);
         default: return undefined;
     }
@@ -33,7 +33,7 @@ let operator = null;
 let mustResetDisplay = false;
 let errorState = false;
 
-    const display = document.querySelector(".display");
+const display = document.querySelector(".display");
 
 function appendNumber(num) {
     if (errorState) {
@@ -42,7 +42,7 @@ function appendNumber(num) {
         mustResetDisplay = false;
         return;
     }
-    
+
     if (display.textContent === "0" || mustResetDisplay) {
         display.textContent = num;
         mustResetDisplay = false;
@@ -99,7 +99,7 @@ function operationSetup(op) {
     if (errorState) {
         return;
     }
-    
+
     if (operator !== null) {
         evaluate();
     }
