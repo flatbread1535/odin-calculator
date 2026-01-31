@@ -21,7 +21,7 @@ function operate(num1, num2, operator) {
     switch (operator) {
         case "+": return add(num1, num2);
         case "-": return subtract(num1, num2);
-        case "×": return multiply(num1, num2);
+        case "*": return multiply(num1, num2);
         case "/": return divide(num1, num2);
         default: return undefined;
     }
@@ -90,7 +90,7 @@ function convertOperation(operation) {
     switch (operation) {
         case "+": return "+";
         case "-": return "-";
-        case "x": return "*";
+        case "×": return "*";
         case "÷": return "/";
     }
 }
@@ -100,7 +100,7 @@ function operationSetup(op) {
         return;
     }
 
-    if (operator !== null) {
+    if (operator !== null && !mustResetDisplay) {
         evaluate();
     }
     firstOperand = Number(display.textContent);
@@ -144,7 +144,10 @@ buttons.forEach((button) => {
         } else if (content === "=") {
             evaluate();
         } else {
-            operationSetup(convertOperation(content));
+            const op = convertOperation(content);
+            if (op !== undefined) {
+                operationSetup(op);
+            }
         }
     });
 });
